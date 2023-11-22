@@ -5,10 +5,18 @@ module.exports.profile = function(req,res){
 }
 
 module.exports.signin = function(req,res){
+    if (req.isAuthenticated()){
+        return res.redirect('/users/profile')
+    }
     return res.render('user_sign_in',{title: "Codeial | Signin"});
 }
 
 module.exports.signup = function(req,res){
+
+    if (req.isAuthenticated()){
+        return res.redirect('/users/profile')
+    }
+
     return res.render('user_sign_up',{title: "Codeial | Signup"});
 }
 
@@ -102,4 +110,18 @@ module.exports.create = function(req,res){
 
 module.exports.createsession = function(req,res){
 
+    console.log("halllo")
+
+    return res.redirect('/');
+
+}
+
+module.exports.destroysession = function(req,res){
+    req.logout(function(err) {
+        if (err) { return next(err); }
+    });
+        
+
+
+    return res.redirect('/');
 }
